@@ -1,5 +1,5 @@
 // import logo from "./logo.svg";
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Header from "./MyComponents/Header";
 import Footer from "./MyComponents/Footer";
@@ -7,51 +7,36 @@ import Todos from "./MyComponents/Todos";
 import AddTodo from "./MyComponents/AddTodo";
 
 function App() {
-  let [todos, setTodos] = useState([
-    {
-      sno: 1,
-      title: "go to shop",
-      desc: "buy milk",
-    },
-    {
-      sno: 2,
-      title: "go to mall",
-      desc: "buy utensils",
-    },
-    {
-      sno: 3,
-      title: "go to market",
-      desc: "buy veggie",
-    },
-  ]);
+  // let initTodo;
+  // if (localStorage.getItem("todos") === null) {
+  //   initTodo = [];
+  // } else {
+  //   initTodo = localStorage.getItem("todos");
+  // }
+
+  const [todos, setTodos] = useState([]);
 
   const onDelete = (todo) => {
-    // todos.pop(todo);
-    // setTodos(todos);
-
-    // console.log(todos);
     setTodos(
       todos.filter((e) => {
-        console.log(e);
         return e !== todo;
       })
     );
   };
+  const addTodo = (title, desc) => {
+    const myTodo = {
+      title: title,
+      desc: desc,
+    };
 
-const addTodo=(title,desc)=>{
-  let sno=todos[todos.length-1].sno;
-  const myTodo={
-    sno:sno,
-    title:title,
-    desc:desc,
-  }
-  setTodos([...todos,myTodo]);
-}  
+    setTodos([...todos, myTodo]); //this will add todo to todos
+  };
+  localStorage.setItem("todos", JSON.stringify(todos));
 
   return (
     <>
       <Header title="to-do-list" searchBar={false} />
-      <AddTodo addTodo={addTodo}/>
+      <AddTodo addTodo={addTodo} />
       <Todos todos={todos} onDelete={onDelete} length={todos.length} />
       <Footer />
     </>

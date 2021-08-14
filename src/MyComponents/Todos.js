@@ -22,9 +22,6 @@ export default function Todos(props) {
         
        } )
        }
-    
-    
-      
     </div>
 
   );
